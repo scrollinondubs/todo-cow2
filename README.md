@@ -6,11 +6,20 @@ With Todo Cow, we're not just building a product; we're crafting a tool that emp
 
 ## Features
 
-- Todo Cow project generated with Confabulator
+- Add a cow with a name and an ear tag number
+- View, edit, and remove cows
+- Add tasks to a cow with a title and due date
+- Mark tasks done / not done
+- Herd view listing every cow with its outstanding task count, sorted so overdue cows surface first
 
 ## Tech Stack
 
-- **Framework**: Next.js
+- **Framework**: Next.js 14 (App Router) + TypeScript
+- **Styling**: Tailwind CSS with shadcn/ui-style components
+- **Database**: [Turso](https://turso.tech) (libSQL) via `@libsql/client`
+- **ORM**: Drizzle ORM
+- **Mutations**: Next.js Server Actions
+- **Deployment**: Vercel
 
 ## Quick Start
 
@@ -18,6 +27,7 @@ With Todo Cow, we're not just building a product; we're crafting a tool that emp
 
 - Node.js 18+
 - npm or yarn
+- A [Turso](https://turso.tech) database (or a local `file:local.db` for development, no external service required)
 - [Claude Code CLI](https://claude.ai/claude-code) (for Ralph autonomous development)
 - [GitHub CLI](https://cli.github.com/) (for Ralph issue integration)
 
@@ -27,7 +37,20 @@ With Todo Cow, we're not just building a product; we're crafting a tool that emp
 git clone <your-repo-url>
 cd todo-cow
 npm install
+cp .env.example .env
 ```
+
+Fill in `.env` with your Turso database URL and auth token. To develop without an external service, set `TURSO_DATABASE_URL=file:local.db` and leave `TURSO_AUTH_TOKEN` unset.
+
+### Database Setup
+
+Push the schema (creates the `cows` and `tasks` tables):
+
+```bash
+npm run db:push
+```
+
+If you prefer versioned migration files instead of a direct push, use `npm run db:generate` to write SQL into `./drizzle`, then `npm run db:migrate` to apply it.
 
 ### Development
 
@@ -40,6 +63,24 @@ npm run dev
 ```bash
 npm run build
 ```
+
+### Tests
+
+```bash
+npm test
+```
+
+## Deploying to Vercel
+
+1. Create a Turso database and grab its credentials:
+   ```bash
+   turso db create todo-cow
+   turso db show todo-cow --url
+   turso db tokens create todo-cow
+   ```
+2. Push the schema against that database with `npm run db:push` (using the Turso credentials in your local `.env`).
+3. Import the repo into Vercel and set the `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` environment variables in the project's settings.
+4. Deploy - no further configuration is required; the app renders the herd view dynamically on every request.
 
 ## Getting Started with Ralph 🤖
 
