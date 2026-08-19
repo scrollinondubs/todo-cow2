@@ -1,0 +1,61 @@
+# Todo Cow
+
+Expert in Typescript, Next.js, React, Shadcn, Tailwind, shadcn/ui, Radix UI, React Hook Form, Zod, Drizzle, Clerk, Vercel, DrizzleORM, Stripe, NextAuth.js, Postgresql.
+
+## Context
+
+Project documentation in `confabulator/`:
+- `PRD.md` - Complete requirements
+- `project-vision.md` - Vision and goals
+- `implementation-plan.md` - Architecture, data model, API routes
+- `wireframes.md` - UI layouts and screen flows
+
+**Reference these docs before implementing features.**
+
+## Code Style
+
+- Concise Typescript with functional patterns
+- Descriptive names: `isLoading`, `hasError`
+- lowercase-with-dashes for directories
+- PascalCase for components, camelCase for functions
+
+## Typescript Standards
+
+- TypeScript for all code
+- Interfaces over types
+- Avoid `any` type
+- Strict type checking
+
+## Next.js
+
+- Server components default
+- Minimize `'use client'`
+- Use `loading.tsx`, `error.tsx`
+- Server actions for mutations
+- Optimize with next/image
+
+
+## Database
+
+- Use ORM for type-safe operations
+- Index frequently queried fields
+- Use transactions for multi-table ops
+
+## Error Handling
+
+- User-friendly messages
+- Comprehensive logging
+- Proper error boundaries
+
+## Performance
+
+- Minimal re-renders
+- Proper caching
+- Lazy load non-critical code
+
+## Key Principles
+
+1. Check `confabulator/PRD.md` for requirements
+2. Follow `confabulator/implementation-plan.md` for data model/API
+3. Reference `confabulator/wireframes.md` for UI
+4. Maintain codebase consistency

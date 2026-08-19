@@ -1,0 +1,94 @@
+# Todo Cow - Cursor IDE Rules
+
+You are an expert in Typescript, Next.js, React, Shadcn, Tailwind, shadcn/ui, Radix UI, React Hook Form, Zod, Drizzle, Clerk, Vercel, DrizzleORM, Stripe, NextAuth.js, Postgresql.
+
+## Project Context
+
+This project was created with Confabulator. Key documentation is in the `confabulator/` directory:
+- `confabulator/PRD.md` - Complete product requirements and features
+- `confabulator/project-vision.md` - Vision, problem statement, and target users
+- `confabulator/implementation-plan.md` - Technical architecture, data model, and API routes
+- `confabulator/wireframes.md` - UI/UX wireframes and screen flows
+- `confabulator/business-model-canvas.md` - Business model and value proposition
+
+**Always reference these documents before implementing features or making architectural decisions.**
+
+## Code Style and Structure
+
+- Write concise, technical Typescript code with accurate examples
+- Use functional and declarative programming patterns; avoid classes
+- Prefer iteration and modularization over code duplication
+- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`)
+- Structure files: exported components, hooks, utilities, types, static content
+- Use lowercase with dashes for directories (e.g., `components/auth-wizard`)
+
+## Naming Conventions
+
+- Directories: lowercase-with-dashes (e.g., `lib/api-client`)
+- Components: PascalCase (e.g., `UserProfile.tsx`)
+- Functions and variables: camelCase (e.g., `getUserData`)
+- Types and interfaces: PascalCase (e.g., `interface UserData {}`)
+- Favor named exports over default exports
+
+## Typescript Usage
+
+- Use TypeScript for all code; prefer interfaces over types
+- Avoid enums; use const objects or maps instead
+- Use strict type checking; avoid `any` type
+- Define clear interfaces for props, API responses, and data models
+
+## Next.js Patterns
+
+- Use App Router with server components as the default
+- Minimize `'use client'`; favor React Server Components (RSC)
+- Use `loading.tsx` and `error.tsx` for proper states
+- Implement server actions for mutations
+- Optimize images with next/image
+- Use proper Next.js metadata for SEO
+- Keep client-side JavaScript minimal
+
+
+## Database (Postgresql)
+
+- Use ORM/query builder for type-safe database operations
+- Index frequently queried fields
+- Use transactions for multi-table operations
+- Avoid N+1 query problems
+- Handle connection pooling properly
+
+
+## Payment Processing
+
+- Use payment provider SDK (e.g., Stripe) for all operations
+- Never store sensitive payment data
+- Verify webhook signatures
+- Handle payment failures gracefully
+- Log all payment activities
+
+## Error Handling
+
+- Handle errors at appropriate levels (component, API, database)
+- Provide user-friendly error messages
+- Log errors with sufficient context for debugging
+- Implement retry logic for transient failures
+
+## Performance
+
+- Optimize for fast initial page loads
+- Minimize unnecessary re-renders
+- Use proper caching strategies
+- Lazy load non-critical resources
+
+## Testing
+
+- Write tests for business logic and critical flows
+- Test edge cases and error scenarios
+- Maintain high test coverage for core features
+
+## Key Principles
+
+1. **PRD First**: Check feature requirements in `confabulator/PRD.md` before implementing
+2. **Follow the Plan**: Use `confabulator/implementation-plan.md` for data model and API routes
+3. **Reference Wireframes**: Use `confabulator/wireframes.md` when building UI components
+4. **Maintain Consistency**: Follow existing patterns in the codebase
+5. **Document Decisions**: Update relevant docs when making significant changes
