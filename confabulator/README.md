@@ -1,0 +1,186 @@
+# Todo Cow - Parallel Development Guide
+
+Welcome! This directory contains everything you need for efficient parallel development using git worktrees.
+
+## 🌳 What are Git Worktrees?
+
+Git worktrees allow you to have **multiple branches checked out simultaneously** in different directories.
+This means you can:
+
+- Work on multiple features in parallel without switching branches
+- Keep different features isolated from each other
+- Run tests on one feature while developing another
+- No more `git stash` juggling!
+
+## 🚀 Quick Start
+
+### 1. Set Up All Worktrees
+
+```bash
+./confabulator/setup-worktrees.sh
+```
+
+This creates a separate directory for each epic and task, allowing you to work on them independently.
+
+**Example directory structure after setup:**
+```
+your-project/              # Main repository
+├── confabulator/          # Scripts and docs (you are here)
+├── src/
+└── ...
+
+../epic-1-worktree/         # Separate worktree for Epic #1
+../epic-2-worktree/         # Separate worktree for Epic #2
+../task-5-worktree/         # Separate worktree for Task #5
+```
+
+### 2. Start Working on Multiple Features
+
+Open multiple terminal windows and work on different features simultaneously:
+
+**Terminal 1 - Work on Epic #1:**
+```bash
+cd ../epic-1-worktree
+# Make changes, commit, test
+git add .
+git commit -m "feat: implement user authentication"
+```
+
+**Terminal 2 - Simultaneously work on Task #5:**
+```bash
+cd ../task-5-worktree
+# Work on a different task in parallel
+git add .
+git commit -m "feat: add login UI component"
+```
+
+### 3. Check Status and Dependencies
+
+```bash
+./confabulator/worktree-status.sh
+```
+
+This shows:
+- 📂 All active worktrees
+- 🔗 Dependency relationships between tasks
+- 🔀 Recommended merge order (dependencies first)
+- ⚠️  Any circular dependency warnings
+
+### 4. Understand Dependencies
+
+```bash
+cat confabulator/dependency-graph.md
+# Or open in your editor/GitHub for nice rendering
+```
+
+The dependency graph shows:
+- Which tasks must be completed before others
+- Which tasks can be developed in parallel
+- The optimal order for merging branches
+
+### 5. Merge Branches in Correct Order
+
+**Important:** Merge branches following the dependency order to avoid conflicts.
+
+**Recommended merge order for this project:**
+
+```bash
+git checkout main
+
+# 1. Merge epic #1
+git merge epic/1-cow-management
+
+# 2. Merge task #2
+#    (depends on: #5, #8)
+git merge task/2-implement-cow-addition
+
+# 3. Merge epic #3
+git merge epic/3-task-management
+
+# 4. Merge task #4
+#    (depends on: #5, #8)
+git merge task/4-implement-task-addition
+
+# 5. Merge epic #6
+git merge epic/6-herd-view
+
+# ... and 1 more (see worktree-status.sh)
+
+```
+
+### 6. Cleanup When Done
+
+After merging all your branches:
+
+```bash
+./confabulator/cleanup-worktrees.sh
+```
+
+This removes all worktree directories (after confirmation).
+
+## 📁 File Reference
+
+| File | Purpose |
+|------|---------|
+| `README.md` | This file - getting started guide |
+| `setup-worktrees.sh` | Creates all worktrees for parallel development |
+| `cleanup-worktrees.sh` | Removes all worktrees after merging |
+| `worktree-status.sh` | Shows current status and dependencies |
+| `dependency-graph.md` | Visual dependency diagram (Mermaid) |
+
+## 🔧 Advanced Usage
+
+### Working with Individual Worktrees
+
+```bash
+# List all worktrees
+git worktree list
+
+# Remove a specific worktree
+git worktree remove ../epic-1-worktree
+
+# Add a worktree manually
+git worktree add ../my-feature -b feature/my-feature
+```
+
+## 🐛 Troubleshooting
+
+### "Worktree already exists"
+The setup script automatically skips existing worktrees. This is not an error.
+
+### "Branch already exists"
+If you need to recreate a worktree:
+```bash
+git worktree remove ../epic-1-worktree
+git branch -D epic/1-title  # Delete the branch
+./confabulator/setup-worktrees.sh  # Run setup again
+```
+
+### "fatal: not a git repository"
+Make sure you're running scripts from the main repository directory.
+
+### Merge Conflicts
+If you encounter conflicts when merging:
+1. Resolve conflicts in your editor
+2. `git add .` to stage resolved files
+3. `git commit` to complete the merge
+
+**Tip:** Following the recommended merge order minimizes conflicts!
+
+## 💡 Pro Tips
+
+1. **Use descriptive commit messages** in each worktree - helps track progress
+2. **Run tests in each worktree** before merging to catch issues early
+3. **Check dependencies first** - work on tasks with no dependencies for fastest progress
+4. **Keep worktrees focused** - one feature per worktree works best
+5. **Regular status checks** - run `worktree-status.sh` to track overall progress
+
+## 📚 Learn More
+
+- [Git Worktree Documentation](https://git-scm.com/docs/git-worktree)
+- [GitHub Issues](https://github.com/scrollinondubs/todo-cow2/issues) - View all issues with detailed requirements
+- [Dependency Graph](./dependency-graph.md) - Visual representation of task dependencies
+
+---
+
+🤖 *Generated by [Confabulator](https://vibecodelisboa.com)*
